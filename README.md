@@ -455,4 +455,4 @@ merntasks/
 
 ## License
 
-This project is licensed under the **MIT License**.
+The license for this project has not yet been finalized. A `LICENSE` file will be added to this repository once the licensing terms are defined.
