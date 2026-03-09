@@ -307,12 +307,14 @@ POST /api/tasks
 
 ```json
 {
-  "_id": "...",
-  "name": "Design mockups",
-  "state": false,
-  "projectId": "<project_id>",
-  "createdAt": "...",
-  "updatedAt": "..."
+  "newTask": {
+    "_id": "...",
+    "name": "Design mockups",
+    "state": false,
+    "projectId": "<project_id>",
+    "createdAt": "...",
+    "updatedAt": "..."
+  }
 }
 ```
 
