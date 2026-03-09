@@ -363,10 +363,12 @@ PUT /api/tasks/:id
 
 ```json
 {
-  "_id": "...",
-  "name": "Design mockups",
-  "state": true,
-  "projectId": "<project_id>"
+  "task": {
+    "_id": "...",
+    "name": "Design mockups",
+    "state": true,
+    "projectId": "<project_id>"
+  }
 }
 ```
 
