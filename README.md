@@ -329,14 +329,16 @@ GET /api/tasks?projectId=<project_id>
 **Response `200`**
 
 ```json
-[
-  {
-    "_id": "...",
-    "name": "Design mockups",
-    "state": false,
-    "projectId": "<project_id>"
-  }
-]
+{
+  "tasks": [
+    {
+      "_id": "...",
+      "name": "Design mockups",
+      "state": false,
+      "projectId": "<project_id>"
+    }
+  ]
+}
 ```
 
 ---
