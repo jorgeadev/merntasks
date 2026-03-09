@@ -1,9 +1,20 @@
-const User = require("../models/User");
-const bcrypt = require("bcryptjs");
-const { validationResult } = require("express-validator");
-const jwt = require("jsonwebtoken");
+import { userModel } from "@/models/user";
+import { envs } from "@/plugins/envs-plugin";
+import bcrypt from "bcryptjs";
+import { validationResult } from "express-validator";
+import jwt from "jsonwebtoken";
+import express from "express";
 
-exports.authenticateUser = async function(req, res) {
+declare global {
+	namespace Express {
+		interface Request {
+			user?: any;
+		}
+	}
+}
+
+// authenticate user and get token
+export const authenticateUser = async function(req: express.Request, res: express.Response) {
 	// check if there are any errors
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
@@ -12,11 +23,10 @@ exports.authenticateUser = async function(req, res) {
 
 	// extract email and password from request body
 	const { email, password } = req.body;
+
 	try {
 		// Check the user have already registered with an email
-		let user = await User.findOne({ email });
-
-		console.log('user ', user);
+		let user = await userModel.findOne({ email });
 
 		if (!user) {
 			return res.status(400).json({ msg: "User not exists" });
@@ -34,7 +44,9 @@ exports.authenticateUser = async function(req, res) {
 				_id: user._id
 			}
 		}
-		jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: 86400 }, (err, token) => {
+
+		// sign the token and send it in the response
+		jwt.sign(payload, envs.SECRET_KEY, { expiresIn: 86400 }, (err, token) => {
 			if (err) throw err;
 			res.json({ token });
 		});
@@ -45,9 +57,9 @@ exports.authenticateUser = async function(req, res) {
 }
 
 // get authenticated user
-exports.authenticatedUser = async function(req, res) {
+export const authenticatedUser = async function(req: express.Request, res: express.Response) {
 	try {
-		const user = await User.findById(req.user._id).select('-password');
+		const user = await userModel.findById(req.user._id).select('-password');
 		res.json(user);
 	} catch (error) {
 		console.log(error);

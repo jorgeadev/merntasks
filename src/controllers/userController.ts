@@ -1,9 +1,12 @@
-const User = require("../models/User");
-const bcrypt = require("bcryptjs");
-const { validationResult } = require("express-validator");
-const jwt = require("jsonwebtoken");
+import { userModel } from "@/models/user";
+import { validationResult } from "express-validator";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
+import { envs } from "@/plugins/envs-plugin";
+import express from "express";
 
-exports.createUser = async function(req, res) {
+// authenticate user and get token
+const createUser = async function(req: express.Request, res: express.Response) {
 	// check if there are any errors
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
@@ -12,15 +15,16 @@ exports.createUser = async function(req, res) {
 
 	// extract email and password from request body
 	const { email, password } = req.body;
+
 	try {
-		let user = await User.findOne({ email });
+		let user = await userModel.findOne({ email });
 
 		if (user) {
 			return res.status(400).json({ msg: "User already exists" });
 		}
 
 		// create a new user
-		user = new User(req.body);
+		user = new userModel(req.body);
 
 		// hash password
 		const salt = await bcrypt.genSalt(10);
@@ -35,7 +39,9 @@ exports.createUser = async function(req, res) {
 				_id: user._id
 			}
 		}
-		jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: 86400 }, (err, token) => {
+
+		// sign the token and send it in the response
+		jwt.sign(payload, envs.SECRET_KEY, { expiresIn: 86400 }, (err, token) => {
 			if (err) throw err;
 			res.json({ token });
 		});
@@ -45,3 +51,5 @@ exports.createUser = async function(req, res) {
 		res.status(400).send('There was an error creating the user');
 	}
 }
+
+export { createUser };

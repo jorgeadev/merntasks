@@ -1,8 +1,9 @@
-const express = require('express');
+import { createProject, deleteProject, getProjects, updateProject } from '@/controllers/project-controller';
+import { auth } from '@/middleware/auth';
+import express, { Router } from 'express';
+import { check } from 'express-validator';
+
 const router = express.Router();
-const projectController = require('../controllers/projectController');
-const auth = require('../middleware/auth');
-const { check } = require('express-validator');
 
 // @route   POST api/projects
 router.post('/',
@@ -10,13 +11,13 @@ router.post('/',
 	[
 		check('name', 'Name is required').not().isEmpty()
 	],
-	projectController.createProject
+	createProject
 );
 
 // get all projects of current user
 router.get('/',
 	auth,
-	projectController.getProjects,
+	getProjects,
 );
 
 // update project
@@ -25,13 +26,13 @@ router.put('/:id',
 	[
 		check('name', 'Name is required').not().isEmpty()
 	],
-	projectController.updateProject,
+	updateProject,
 );
 
 // delete project
 router.delete('/:id',
 	auth,
-	projectController.deleteProject,
+	deleteProject,
 );
 
-module.exports = router;
+export const projectsRouter: Router = router;

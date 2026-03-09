@@ -1,8 +1,9 @@
-const express = require('express');
+import { authenticatedUser, authenticateUser } from "@/controllers/authController";
+import { auth } from "@/middleware/auth";
+import express, { Router } from "express";
+import { check } from "express-validator";
+
 const router = express.Router();
-const { check } = require('express-validator');
-const authController = require('../controllers/authController');
-const auth = require('../middleware/auth');
 
 /**
  * Create a new user
@@ -13,12 +14,12 @@ router.post('/',
 		check('email', 'Please include a valid email').isEmail(),
 		check('password', 'Please enter a password with 6 or more characters').isLength({ min: 6 })
 	],
-	authController.authenticateUser
+	authenticateUser
 );
 
 router.get('/',
 	auth,
-	authController.authenticatedUser
+	authenticatedUser
 );
 
-module.exports = router;
+export const authRouter: Router = router;
