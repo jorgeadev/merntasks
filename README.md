@@ -29,7 +29,7 @@ A RESTful API for a Task Management application built with Node.js, Express, Mon
 - Task completion state tracking
 - User-based data isolation (users only access their own data)
 - Cascading deletion of tasks when a project is removed
-- Input validation on all endpoints
+- Input validation with express-validator on key endpoints
 - Secure password hashing with bcryptjs
 
 ## Tech Stack
