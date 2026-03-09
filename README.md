@@ -227,13 +227,15 @@ Returns all projects belonging to the authenticated user.
 **Response `200`**
 
 ```json
-[
-  {
-    "_id": "...",
-    "name": "My Project",
-    "createdBy": "<user_id>"
-  }
-]
+{
+  "projects": [
+    {
+      "_id": "...",
+      "name": "My Project",
+      "createdBy": "<user_id>"
+    }
+  ]
+}
 ```
 
 ---
