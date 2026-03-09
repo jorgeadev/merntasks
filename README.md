@@ -278,7 +278,7 @@ Deletes the project and all tasks associated with it.
 
 ```json
 {
-  "msg": "Project deleted"
+  "msg": "Project with id <id> deleted"
 }
 ```
 
