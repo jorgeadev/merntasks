@@ -63,7 +63,8 @@ cd merntasks
 pnpm install
 
 # 3. Create your environment file
-cp .env.example .env   # then fill in the required values (see below)
+# Create a new .env file in the project root and add the variables listed below
+touch .env
 
 # 4. Start the development server
 pnpm dev
