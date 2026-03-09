@@ -384,7 +384,7 @@ DELETE /api/tasks/:id
 
 ```json
 {
-  "msg": "Task deleted"
+  "msg": "Task with id <id> deleted"
 }
 ```
 
