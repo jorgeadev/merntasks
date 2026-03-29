@@ -12,21 +12,21 @@
 		"@types/cors": "2.8.19",
 		"@types/express": "5.0.6",
 		"@types/jsonwebtoken": "9.0.10",
-		"@types/node": "25.3.5",
-		"nodemon": "^3.1.14",
+		"@types/node": "25.5.0",
+		"nodemon": "3.1.14",
 		"tsx": "4.21.0",
-		"typescript": "6.0.0-beta"
+		"typescript": "6.0.2"
 	},
 	"dependencies": {
-		"bcryptjs": "^3.0.3",
-		"cors": "^2.8.6",
-		"dotenv": "^17.3.1",
+		"bcryptjs": "3.0.3",
+		"cors": "2.8.6",
+		"dotenv": "17.3.1",
 		"env-var": "7.5.0",
-		"express": "^5.2.1",
-		"express-validator": "^7.3.1",
-		"jsonwebtoken": "^9.0.3",
-		"mongodb": "7.1.0",
-		"mongoose": "^9.2.4"
+		"express": "5.2.1",
+		"express-validator": "7.3.1",
+		"jsonwebtoken": "9.0.3",
+		"mongodb": "7.1.1",
+		"mongoose": "9.3.3"
 	},
 	"pnpm": {
 		"overrides": {
