@@ -14,7 +14,10 @@ declare global {
 }
 
 // authenticate user and get token
-export const authenticateUser = async function(req: express.Request, res: express.Response) {
+export const authenticateUser = async function (
+	req: express.Request,
+	res: express.Response,
+) {
 	// check if there are any errors
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
@@ -41,28 +44,36 @@ export const authenticateUser = async function(req: express.Request, res: expres
 		// if all right create and sign a token
 		const payload = {
 			user: {
-				_id: user._id
-			}
-		}
+				_id: user._id,
+			},
+		};
 
 		// sign the token and send it in the response
-		jwt.sign(payload, envs.SECRET_KEY, { expiresIn: 86400 }, (err, token) => {
-			if (err) throw err;
-			res.json({ token });
-		});
+		jwt.sign(
+			payload,
+			envs.SECRET_KEY,
+			{ expiresIn: 86400 },
+			(err, token) => {
+				if (err) throw err;
+				res.json({ token });
+			},
+		);
 	} catch (error) {
 		console.log(error);
-		res.status(400).send('There was an error creating the user');
+		res.status(400).send("There was an error creating the user");
 	}
-}
+};
 
 // get authenticated user
-export const authenticatedUser = async function(req: express.Request, res: express.Response) {
+export const authenticatedUser = async function (
+	req: express.Request,
+	res: express.Response,
+) {
 	try {
-		const user = await userModel.findById(req.user._id).select('-password');
+		const user = await userModel.findById(req.user._id).select("-password");
 		res.json(user);
 	} catch (error) {
 		console.log(error);
 		res.status(500).json({ msg: "Error getting user" });
 	}
-}
+};

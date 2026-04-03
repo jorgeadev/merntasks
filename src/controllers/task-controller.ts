@@ -16,30 +16,34 @@ export const createTask = async (req: Request, res: Response) => {
 	try {
 		const project = await ProjectModel.findById(projectId);
 		if (!project) {
-			return res.status(404).json({ msg: 'Project with id ' + projectId + ' not found' });
+			return res
+				.status(404)
+				.json({ msg: "Project with id " + projectId + " not found" });
 		}
 
 		// check if the current project is the owner of the authenticated user
-		if (!project.createdBy || project.createdBy.toString() !== req.user._id) {
-			return res.status(401).json({ msg: 'Not authorized' });
+		if (
+			!project.createdBy ||
+			project.createdBy.toString() !== req.user._id
+		) {
+			return res.status(401).json({ msg: "Not authorized" });
 		}
 
 		// create a new task object
 		const newTask = new TaskModel({
 			name,
 			state: false,
-			projectId: projectId
+			projectId: projectId,
 		});
 
 		// create a new task
 		await newTask.save();
 		res.json({ newTask });
-
 	} catch (error) {
 		console.log(error);
-		res.status(500).send('There was an error creating the task');
+		res.status(500).send("There was an error creating the task");
 	}
-}
+};
 
 // get tasks by project
 export const getTasksByProject = async (req: Request, res: Response) => {
@@ -50,22 +54,29 @@ export const getTasksByProject = async (req: Request, res: Response) => {
 		const project = await ProjectModel.findById(projectId);
 
 		if (!project) {
-			return res.status(404).json({ msg: 'Project with id ' + projectId + ' not found' });
+			return res
+				.status(404)
+				.json({ msg: "Project with id " + projectId + " not found" });
 		}
 
 		// check if the current project is the owner of the authenticated user
-		if (!project.createdBy || project.createdBy.toString() !== req.user._id) {
-			return res.status(401).json({ msg: 'Not authorized' });
+		if (
+			!project.createdBy ||
+			project.createdBy.toString() !== req.user._id
+		) {
+			return res.status(401).json({ msg: "Not authorized" });
 		}
 
 		// get tasks by project
-		const tasks = await TaskModel.find({ projectId: projectId as string }).sort({ createdBy: -1 });
+		const tasks = await TaskModel.find({
+			projectId: projectId as string,
+		}).sort({ createdBy: -1 });
 		res.json({ tasks });
 	} catch (error) {
 		console.log(error);
-		res.status(500).send('There was an error getting the tasks');
+		res.status(500).send("There was an error getting the tasks");
 	}
-}
+};
 
 // update task
 export const updateTask = async (req: Request, res: Response) => {
@@ -77,18 +88,23 @@ export const updateTask = async (req: Request, res: Response) => {
 		// check if the task exists
 		let task = await TaskModel.findById(id);
 		if (!task) {
-			return res.status(404).json({ msg: 'Task not found' });
+			return res.status(404).json({ msg: "Task not found" });
 		}
 
 		// extract project
 		const projectExists = await ProjectModel.findById(projectId);
 		if (!projectExists) {
-			return res.status(404).json({ msg: 'Project with id ' + projectId + ' not found' });
+			return res
+				.status(404)
+				.json({ msg: "Project with id " + projectId + " not found" });
 		}
 
 		// check if the current project is the owner of the authenticated user
-		if (!projectExists.createdBy || projectExists.createdBy.toString() !== req.user._id) {
-			return res.status(401).json({ msg: 'Not authorized' });
+		if (
+			!projectExists.createdBy ||
+			projectExists.createdBy.toString() !== req.user._id
+		) {
+			return res.status(401).json({ msg: "Not authorized" });
 		}
 
 		// create a new task object
@@ -97,13 +113,15 @@ export const updateTask = async (req: Request, res: Response) => {
 		if (state !== undefined) updatedTask.state = state;
 
 		// update the task
-		await TaskModel.findOneAndUpdate({ _id: id }, updatedTask, { new: true });
+		await TaskModel.findOneAndUpdate({ _id: id }, updatedTask, {
+			new: true,
+		});
 		res.json({ task });
 	} catch (error) {
 		console.log(error);
-		res.status(500).send('There was an error updating the task');
+		res.status(500).send("There was an error updating the task");
 	}
-}
+};
 
 // delete task
 export const deleteTask = async (req: Request, res: Response) => {
@@ -113,25 +131,30 @@ export const deleteTask = async (req: Request, res: Response) => {
 		// check if the task exists
 		const task = await TaskModel.findById(id);
 		if (!task) {
-			return res.status(404).json({ msg: 'Task not found' });
+			return res.status(404).json({ msg: "Task not found" });
 		}
 
 		// extract project
 		const project = await ProjectModel.findById(task.projectId);
 		if (!project) {
-			return res.status(404).json({ msg: 'Project with id ' + task.projectId + ' not found' });
+			return res.status(404).json({
+				msg: "Project with id " + task.projectId + " not found",
+			});
 		}
 
 		// check if the current project is the owner of the authenticated user
-		if (!project.createdBy || project.createdBy.toString() !== req.user._id) {
-			return res.status(401).json({ msg: 'Not authorized' });
+		if (
+			!project.createdBy ||
+			project.createdBy.toString() !== req.user._id
+		) {
+			return res.status(401).json({ msg: "Not authorized" });
 		}
 
 		// delete the task
 		await TaskModel.findByIdAndDelete({ _id: id });
-		res.json({ msg: 'Task with id ' + id + ' deleted' });
+		res.json({ msg: "Task with id " + id + " deleted" });
 	} catch (error) {
 		console.log(error);
-		res.status(500).send('There was an error deleting the task');
+		res.status(500).send("There was an error deleting the task");
 	}
-}
+};
