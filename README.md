@@ -11,10 +11,10 @@ A RESTful API for a Task Management application built with Node.js, Express, Mon
 - [Environment Variables](#environment-variables)
 - [Running the Project](#running-the-project)
 - [API Reference](#api-reference)
-  - [Authentication](#authentication)
-  - [Users](#users)
-  - [Projects](#projects)
-  - [Tasks](#tasks)
+    - [Authentication](#authentication)
+    - [Users](#users)
+    - [Projects](#projects)
+    - [Tasks](#tasks)
 - [Project Structure](#project-structure)
 - [Data Models](#data-models)
 - [License](#license)
@@ -34,17 +34,17 @@ A RESTful API for a Task Management application built with Node.js, Express, Mon
 
 ## Tech Stack
 
-| Layer        | Technology                              |
-| ------------ | --------------------------------------- |
-| Runtime      | Node.js                                 |
-| Language     | TypeScript                              |
-| Framework    | Express.js v5                           |
-| Database     | MongoDB                                 |
-| ODM          | Mongoose                                |
-| Auth         | JSON Web Tokens (jsonwebtoken)          |
-| Hashing      | bcryptjs                                |
-| Validation   | express-validator                       |
-| Package mgr  | pnpm                                    |
+| Layer       | Technology                     |
+| ----------- | ------------------------------ |
+| Runtime     | Node.js                        |
+| Language    | TypeScript                     |
+| Framework   | Express.js v5                  |
+| Database    | MongoDB                        |
+| ODM         | Mongoose                       |
+| Auth        | JSON Web Tokens (jsonwebtoken) |
+| Hashing     | bcryptjs                       |
+| Validation  | express-validator              |
+| Package mgr | pnpm                           |
 
 ## Prerequisites
 
@@ -74,11 +74,11 @@ pnpm dev
 
 Create a `.env` file in the project root with the following variables:
 
-| Variable    | Required | Default | Description                                      |
-| ----------- | -------- | ------- | ------------------------------------------------ |
-| `DB_MONGO`  | ✅ Yes   | —       | MongoDB connection string (e.g. `mongodb://...`) |
-| `SECRET_KEY`| ✅ Yes   | —       | Secret used to sign JWT tokens                   |
-| `PORT`      | ❌ No    | `4000`  | Port the HTTP server listens on                  |
+| Variable     | Required | Default | Description                                      |
+| ------------ | -------- | ------- | ------------------------------------------------ |
+| `DB_MONGO`   | ✅ Yes   | —       | MongoDB connection string (e.g. `mongodb://...`) |
+| `SECRET_KEY` | ✅ Yes   | —       | Secret used to sign JWT tokens                   |
+| `PORT`       | ❌ No    | `4000`  | Port the HTTP server listens on                  |
 
 Example `.env`:
 
@@ -90,10 +90,10 @@ PORT=4000
 
 ## Running the Project
 
-| Command           | Description                                  |
-| ----------------- | -------------------------------------------- |
-| `pnpm dev`        | Start development server with hot-reload     |
-| `pnpm typecheck`  | Run TypeScript type-checking without emitting|
+| Command          | Description                                   |
+| ---------------- | --------------------------------------------- |
+| `pnpm dev`       | Start development server with hot-reload      |
+| `pnpm typecheck` | Run TypeScript type-checking without emitting |
 
 The server will be available at `http://localhost:4000` (or the port you configured).
 
@@ -121,8 +121,8 @@ POST /api/auth
 
 ```json
 {
-  "email": "user@example.com",
-  "password": "password123"
+	"email": "user@example.com",
+	"password": "password123"
 }
 ```
 
@@ -130,7 +130,7 @@ POST /api/auth
 
 ```json
 {
-  "token": "<jwt_token>"
+	"token": "<jwt_token>"
 }
 ```
 
@@ -142,15 +142,15 @@ POST /api/auth
 GET /api/auth
 ```
 
-*Requires authentication.*
+_Requires authentication._
 
 **Response `200`**
 
 ```json
 {
-  "_id": "...",
-  "name": "Jane Doe",
-  "email": "user@example.com"
+	"_id": "...",
+	"name": "Jane Doe",
+	"email": "user@example.com"
 }
 ```
 
@@ -168,9 +168,9 @@ POST /api/users
 
 ```json
 {
-  "name": "Jane Doe",
-  "email": "user@example.com",
-  "password": "password123"
+	"name": "Jane Doe",
+	"email": "user@example.com",
+	"password": "password123"
 }
 ```
 
@@ -178,7 +178,7 @@ POST /api/users
 
 ```json
 {
-  "token": "<jwt_token>"
+	"token": "<jwt_token>"
 }
 ```
 
@@ -198,7 +198,7 @@ POST /api/projects
 
 ```json
 {
-  "name": "My Project"
+	"name": "My Project"
 }
 ```
 
@@ -206,11 +206,11 @@ POST /api/projects
 
 ```json
 {
-  "_id": "...",
-  "name": "My Project",
-  "createdBy": "<user_id>",
-  "createdAt": "...",
-  "updatedAt": "..."
+	"_id": "...",
+	"name": "My Project",
+	"createdBy": "<user_id>",
+	"createdAt": "...",
+	"updatedAt": "..."
 }
 ```
 
@@ -228,13 +228,13 @@ Returns all projects belonging to the authenticated user.
 
 ```json
 {
-  "projects": [
-    {
-      "_id": "...",
-      "name": "My Project",
-      "createdBy": "<user_id>"
-    }
-  ]
+	"projects": [
+		{
+			"_id": "...",
+			"name": "My Project",
+			"createdBy": "<user_id>"
+		}
+	]
 }
 ```
 
@@ -250,7 +250,7 @@ PUT /api/projects/:id
 
 ```json
 {
-  "name": "Updated Project Name"
+	"name": "Updated Project Name"
 }
 ```
 
@@ -258,9 +258,9 @@ PUT /api/projects/:id
 
 ```json
 {
-  "_id": "...",
-  "name": "Updated Project Name",
-  "createdBy": "<user_id>"
+	"_id": "...",
+	"name": "Updated Project Name",
+	"createdBy": "<user_id>"
 }
 ```
 
@@ -278,7 +278,7 @@ Deletes the project and all tasks associated with it.
 
 ```json
 {
-  "msg": "Project with id <id> deleted"
+	"msg": "Project with id <id> deleted"
 }
 ```
 
@@ -298,8 +298,8 @@ POST /api/tasks
 
 ```json
 {
-  "name": "Design mockups",
-  "projectId": "<project_id>"
+	"name": "Design mockups",
+	"projectId": "<project_id>"
 }
 ```
 
@@ -307,14 +307,14 @@ POST /api/tasks
 
 ```json
 {
-  "newTask": {
-    "_id": "...",
-    "name": "Design mockups",
-    "state": false,
-    "projectId": "<project_id>",
-    "createdAt": "...",
-    "updatedAt": "..."
-  }
+	"newTask": {
+		"_id": "...",
+		"name": "Design mockups",
+		"state": false,
+		"projectId": "<project_id>",
+		"createdAt": "...",
+		"updatedAt": "..."
+	}
 }
 ```
 
@@ -330,14 +330,14 @@ GET /api/tasks?projectId=<project_id>
 
 ```json
 {
-  "tasks": [
-    {
-      "_id": "...",
-      "name": "Design mockups",
-      "state": false,
-      "projectId": "<project_id>"
-    }
-  ]
+	"tasks": [
+		{
+			"_id": "...",
+			"name": "Design mockups",
+			"state": false,
+			"projectId": "<project_id>"
+		}
+	]
 }
 ```
 
@@ -353,9 +353,9 @@ PUT /api/tasks/:id
 
 ```json
 {
-  "name": "Design mockups",
-  "state": true,
-  "projectId": "<project_id>"
+	"name": "Design mockups",
+	"state": true,
+	"projectId": "<project_id>"
 }
 ```
 
@@ -363,12 +363,12 @@ PUT /api/tasks/:id
 
 ```json
 {
-  "task": {
-    "_id": "...",
-    "name": "Design mockups",
-    "state": true,
-    "projectId": "<project_id>"
-  }
+	"task": {
+		"_id": "...",
+		"name": "Design mockups",
+		"state": true,
+		"projectId": "<project_id>"
+	}
 }
 ```
 
@@ -384,7 +384,7 @@ DELETE /api/tasks/:id
 
 ```json
 {
-  "msg": "Task with id <id> deleted"
+	"msg": "Task with id <id> deleted"
 }
 ```
 
@@ -426,22 +426,22 @@ merntasks/
 
 ### User
 
-| Field       | Type   | Description                    |
-| ----------- | ------ | ------------------------------ |
-| `name`      | String | User's display name (required) |
-| `email`     | String | Unique email address (required)|
-| `password`  | String | Bcrypt-hashed password         |
-| `createdAt` | Date   | Auto-generated timestamp       |
-| `updatedAt` | Date   | Auto-generated timestamp       |
+| Field       | Type   | Description                     |
+| ----------- | ------ | ------------------------------- |
+| `name`      | String | User's display name (required)  |
+| `email`     | String | Unique email address (required) |
+| `password`  | String | Bcrypt-hashed password          |
+| `createdAt` | Date   | Auto-generated timestamp        |
+| `updatedAt` | Date   | Auto-generated timestamp        |
 
 ### Project
 
-| Field       | Type     | Description                         |
-| ----------- | -------- | ----------------------------------- |
-| `name`      | String   | Project name (required)             |
-| `createdBy` | ObjectId | Reference to the owning User        |
-| `createdAt` | Date     | Auto-generated timestamp            |
-| `updatedAt` | Date     | Auto-generated timestamp            |
+| Field       | Type     | Description                  |
+| ----------- | -------- | ---------------------------- |
+| `name`      | String   | Project name (required)      |
+| `createdBy` | ObjectId | Reference to the owning User |
+| `createdAt` | Date     | Auto-generated timestamp     |
+| `updatedAt` | Date     | Auto-generated timestamp     |
 
 ### Task
 

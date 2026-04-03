@@ -47,9 +47,7 @@
 		// Use correct ESM import behavior
 		"esModuleInterop": true,
 		"paths": {
-			"@/*": [
-				"./src/*"
-			]
-		},
+			"@/*": ["./src/*"]
+		}
 	}
 }
